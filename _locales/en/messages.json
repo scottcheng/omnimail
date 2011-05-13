@@ -1,0 +1,18 @@
+{
+	"email_to":
+	{
+		"message": "Send an email to $RECIPIENT$.",
+        "placeholders":
+        {
+            "recipient":
+            {
+                "content": "$1"
+            }
+        }
+	},
+
+    "logout":
+    {
+        "message": "Deauthorize OmniMail from accessing your Google contacts."
+    }
+}

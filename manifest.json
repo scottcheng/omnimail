@@ -1,0 +1,13 @@
+{
+    "name": "OmniMail for GMail™",
+    "version": "0.1",
+    "description": "Quickly send email from the address bar using GMail™!",
+
+    "background_page": "background.html",
+    "omnibox":
+    {
+        "keyword": "mail"
+    },
+    "permissions": ["http://*/*", "https://*/*", "tabs"],
+    "default_locale": "en"
+}
