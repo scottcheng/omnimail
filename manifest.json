@@ -2,6 +2,12 @@
     "name": "OmniMail for GMail™",
     "version": "0.2",
     "description": "Quickly send email from the address bar using GMail™!",
+    "icons":
+    {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
 
     "background_page": "background.html",
     "omnibox":
