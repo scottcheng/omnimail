@@ -5,11 +5,6 @@ OmniMail is a simple extension to improve your productivity when sending emails 
 ## Localization
 To translate OmniMail to your language, fork the project on [GitHub](https://github.com/harpyon/OmniMail) and edit the _locales/xx/messages.json file to match your language.
 
-## Donations
-[![Bitcoin](http://i.imgur.com/E6Bem.png)](http://www.bitcoin.org/ "BitCoin")
-
-OmniMail accepts donations via BitCoin. If you want to help keep the spirit of the project up, send any amount of BitCoins to `1KA4ZNS4qCi5v329WSoZ3k7eUm7JxkjemJ`. Thanks!
-
 ## License
 
 OmniMail is Copyright (C) 2011 Håvard Pettersson.
