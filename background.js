@@ -21,11 +21,14 @@ var oauth = ChromeExOAuth.initBackgroundPage({
 });
 
 // map emails to names
-var recipients = {};
+var names = {};
 
 // use a timer to make sure we don't query for contacts too often
 var timer = setTimeout();
 var current_text, current_suggest;
+
+// sloppily checking for emails
+var email = /.+@.+/
 
 var max_results = 5;
 var delay = 500;
@@ -35,7 +38,7 @@ var logout = { content: "logout", description: chrome.i18n.getMessage("logout") 
 chrome.omnibox.onInputChanged.addListener(function(text, suggest)
 {
 	// if there's no query or it's just one letter, and we are authed, do nothing
-	if (text.trim().length <= 1 && oauth.hasToken())
+	if (split_query(text).query.length <= 1 && oauth.hasToken())
 	{
 		suggest([logout]);
 		return;
@@ -52,6 +55,11 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest)
 
 function get_contacts()
 {
+	// separate preceding emails from the current search
+	var query = split_query(current_text);
+	var query_emails = query.emails;
+	query = query.query;
+
 	// form a request
 	var endpoint = "http://www.google.com/m8/feeds/contacts/default/full"
 	var request = {
@@ -59,7 +67,7 @@ function get_contacts()
 		{
 			alt: "json",
 			"max-results": max_results,
-			q: current_text,
+			q: query,
 		},
 		headers:
 		{
@@ -76,7 +84,8 @@ function get_contacts()
 			var contacts = [];
 			var data = JSON.parse(text);
 			
-			// loop through all matched contacts
+			// loop through all matched contacts. Can throw an exception, but 
+			// it's not critical, so we don't bother catching it.
 			for (var i = 0, entry; entry = data.feed.entry[i]; i++)
 			{
 				var contact = {
@@ -107,8 +116,13 @@ function get_contacts()
 			{
 				for (var j = 0, email; email = contact.emails[j]; j++)
 				{
-					recipients[email] = contact.name;
-					suggests.push({ content: email, description: "<url>" + email + "</url> " + chrome.i18n.getMessage("email_to", contact.name) });
+					names[email] = contact.name;
+					var content = query_emails.slice(0);
+					content.push(email);
+					suggests.push({
+						content: content.join(" "), 
+						description: "<url>" + email + "</url> " + (query_emails.length == 0 ? chrome.i18n.getMessage("email_to", contact.name) : chrome.i18n.getMessage("email_to_and_other" + (query_emails.length > 1 ? "s" : ""), [contact.name, query_emails.length]))
+					});
 				}
 			}
 			
@@ -120,6 +134,13 @@ function get_contacts()
 	});
 }
 
+function split_query(query)
+{
+	var split = query.split(" ");
+	for (var i = 0; email.test(split[i]); i++) {}
+	return { emails: split.splice(0, i), query: split.join(" ") };
+}
+
 chrome.omnibox.onInputEntered.addListener(function(text)
 {
 	text = text.trim();
@@ -129,13 +150,16 @@ chrome.omnibox.onInputEntered.addListener(function(text)
 	}
 	else
 	{
-		var recipient = text;
+		var recipients = text.split(" ");
 		// if the recipient has a name, include it in the recipient box
-		if (recipients[text])
+		for (var i = 0, recipient; recipient = recipients[i]; i++)
 		{
-			recipient = '"' + recipients[text] + '" <' + text + ">";
+			if (names[recipient])
+			{
+				recipients[i] = '"' + names[recipient] + '" <' + recipient + ">";
+			}
 		}
 		// open GMail to write the email
-		chrome.tabs.create({ url: "https://mail.google.com/mail/?ui=1&view=cm&fs=1&to=" + encodeURIComponent(recipient) });
+		chrome.tabs.create({ url: "https://mail.google.com/mail/?ui=1&view=cm&fs=1&to=" + encodeURIComponent(recipients.join(", ")) });
 	}
 });

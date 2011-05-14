@@ -1,7 +1,7 @@
 {
 	"email_to":
 	{
-		"message": "Send an email to $RECIPIENT$.",
+		"message": "Send an email to $RECIPIENT$",
         "placeholders":
         {
             "recipient":
@@ -10,6 +10,38 @@
             }
         }
 	},
+
+    "email_to_and_others":
+    {
+        "message": "Send an email to $RECIPIENT$ and $NUM$ others...",
+        "placeholders":
+        {
+            "recipient":
+            {
+                "content": "$1"
+            },
+            "num":
+            {
+                "content": "$2"
+            }
+        }
+    },
+
+    "email_to_and_other":
+    {
+        "message": "Send an email to $RECIPIENT$ and $NUM$ other...",
+        "placeholders":
+        {
+            "recipient":
+            {
+                "content": "$1"
+            },
+            "num":
+            {
+                "content": "$2"
+            }
+        }
+    },
 
     "logout":
     {
