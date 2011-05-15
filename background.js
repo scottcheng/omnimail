@@ -119,10 +119,11 @@ function get_contacts()
 					names[email] = contact.name;
 					var content = query_emails.slice(0);
 					content.push(email);
-					suggests.push({
-						content: content.join(" "), 
-						description: "<url>" + email + "</url> " + (query_emails.length == 0 ? chrome.i18n.getMessage("email_to", contact.name) : chrome.i18n.getMessage("email_to_and_other" + (query_emails.length > 1 ? "s" : ""), [contact.name, query_emails.length]))
-					});
+					if (query_emails.indexOf(email) == -1)
+						suggests.push({
+							content: content.join(" "), 
+							description: "<url>" + email + "</url> " + (query_emails.length == 0 ? chrome.i18n.getMessage("email_to", contact.name) : chrome.i18n.getMessage("email_to_and_other" + (query_emails.length > 1 ? "s" : ""), [contact.name, query_emails.length]))
+						});
 				}
 			}
 			
