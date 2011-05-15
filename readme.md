@@ -1,4 +1,4 @@
-[![Available in the Chrome Web Store](http://code.google.com/chrome/webstore/images/branding/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/developer/detail/kfhbeoladmfbfpmdobbakmokhlniaodg/)
+[![Available in the Chrome Web Store](http://code.google.com/chrome/webstore/images/branding/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/kfhbeoladmfbfpmdobbakmokhlniaodg)
 
 OmniMail is a simple extension to improve your productivity when sending emails with GMail™. Instead of opening GMail and creating a new mail, you simply type `mail` into the omnibox/address bar followed by one or multiple email addresses. You can also search through your Google contacts.
 
