@@ -37,10 +37,10 @@ var logout = { content: "logout", description: chrome.i18n.getMessage("logout") 
 
 chrome.omnibox.onInputChanged.addListener(function(text, suggest)
 {
-	// if there's no query or it's just one letter, and we are authed, do nothing
-	if (split_query(text).query.length <= 1 && oauth.hasToken())
+	// if there's no query or it's just one letter, do nothing
+	if (split_query(text).query.length <= 1)
 	{
-		suggest([logout]);
+		if (oauth.hasToken()) suggest([logout]);
 		return;
 	}
 
