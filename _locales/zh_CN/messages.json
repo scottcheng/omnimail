@@ -1,0 +1,38 @@
+{
+  "email_to": {
+    "message": "给 $RECIPIENT$ 发送邮件",
+    "placeholders": {
+      "recipient": {
+        "content": "$1"
+      }
+    }
+  },
+
+  "email_to_and_others": {
+    "message": "给 $RECIPIENT$ 和另外 $NUM$ 个人发送邮件...",
+    "placeholders": {
+      "recipient": {
+        "content": "$1"
+      },
+      "num": {
+        "content": "$2"
+      }
+    }
+  },
+
+  "email_to_and_other": {
+    "message": "给 $RECIPIENT$ 和另外 $NUM$ 个人发送邮件...",
+    "placeholders": {
+      "recipient": {
+        "content": "$1"
+      },
+      "num": {
+        "content": "$2"
+      }
+    }
+  },
+
+  "logout": {
+    "message": "解除对OmniMail的授权。"
+  }
+}
